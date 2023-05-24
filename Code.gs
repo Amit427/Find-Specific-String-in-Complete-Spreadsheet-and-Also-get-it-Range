@@ -1,10 +1,12 @@
-const ss = SpreadsheetApp.getActive()
-const sheet2 = ss.getSheetByName('Sheet2');
-const master = ss.getSheetByName('MASTER');
+var ss = SpreadsheetApp.getActive()
+var sheet2 = ss.getSheetByName('Sheet2');
+var master = ss.getSheetByName('MASTER');
 
 
 
 function getAllSheetNames() {
+
+
   const spreadsheet = SpreadsheetApp.getActive();
   const sheets = spreadsheet.getSheets();
   const sheetNames = [];
@@ -13,105 +15,100 @@ function getAllSheetNames() {
     const sheetName = sheets[i].getName();
     sheetNames.push(sheetName);
   }
-Logger.log(sheetNames);
+// Logger.log(sheetNames);
 
 return sheetNames
 }
 
 
 
-const sheetList = getAllSheetNames();
-const sheetLength = sheetList.length
 
 
 
 
-function findCellsContainingText() { 
+// function findCellsContainingText() { 
 
-  const lastRow = sheet2.getLastRow();
-  const lastColumn = sheet2.getLastColumn();
-  const searchText = "Employee:";
-  const cellsWithText = [];
+//   const lastRow = sheet2.getLastRow();
+//   const lastColumn = sheet2.getLastColumn();
+//   const searchText = "Employee:";
+//   const cellsWithText = [];
 
-  for (let row = 1; row <= lastRow; row++) {
-    for (let column = 1; column <= lastColumn; column++) {
-      const cellValue = sheet2.getRange(row, column).getValue();
-      if (cellValue && cellValue.toString().includes(searchText)) {
-        const cellAddress = sheet2.getRange(row, column).getA1Notation();
-        cellsWithText.push(cellAddress);
-      }
-    }
-  }
-  Logger.log(cellsWithText);
+//   for (let row = 1; row <= lastRow; row++) {
+//     for (let column = 1; column <= lastColumn; column++) {
+//       const cellValue = sheet2.getRange(row, column).getValue();
+//       if (cellValue && cellValue.toString().includes(searchText)) {
+//         const cellAddress = sheet2.getRange(row, column).getA1Notation();
+//         cellsWithText.push(cellAddress);
+//       }
+//     }
+//   }
+//   Logger.log(cellsWithText);
 
-var allData = []
-
-
-for(i=0;i<cellsWithText.length;i++){
+// var allData = []
 
 
-  Logger.log(cellsWithText[i]);
+// for(i=0;i<cellsWithText.length;i++){
 
 
-var range = sheet2.getRange(cellsWithText[i])
+//   Logger.log(cellsWithText[i]);
 
-const currentRow = range.getRow();
+
+// var range = sheet2.getRange(cellsWithText[i])
+
+// const currentRow = range.getRow();
   
-const nextRow = currentRow + 1;
+// const nextRow = currentRow + 1;
 
-Logger.log(nextRow)
+// Logger.log(nextRow)
 
-const nextRange = sheet2.getRange( "A" + nextRow);
+// const nextRange = sheet2.getRange( "A" + nextRow);
 
-Logger.log(nextRange.getValue())
+// Logger.log(nextRange.getValue())
 
-const empData = sheet2.getRange( "D" + currentRow);
+// const empData = sheet2.getRange( "D" + currentRow);
 
-var value =  empData.getValue()
-var splitValue = value.split(":")
+// var value =  empData.getValue()
+// var splitValue = value.split(":")
 
-var empCode = splitValue[0]
-var empName = splitValue[1]
-Logger.log(empName)
+// var empCode = splitValue[0]
+// var empName = splitValue[1]
+// Logger.log(empName)
 
-Logger.log(sheet2.getRange( 'C'+ nextRow + ':AK' + nextRow).getValues().flat())
-
-
-var present = sheet2.getRange( 'C'+ nextRow + ':AK' + nextRow).getValues().flat().filter(f=>f[0]== "P")
-var absent = sheet2.getRange( 'C'+ nextRow + ':AK' + nextRow).getValues().flat().filter(f=>f[0]== "A")
+// Logger.log(sheet2.getRange( 'C'+ nextRow + ':AK' + nextRow).getValues().flat())
 
 
-// var wo = sheet2.getRange( 'C'+ nextRow + ':AK' + nextRow).getValues().flat().filter(f=>f[0]== "  WO")
+// var present = sheet2.getRange( 'C'+ nextRow + ':AK' + nextRow).getValues().flat().filter(f=>f[0]== "P")
+// var absent = sheet2.getRange( 'C'+ nextRow + ':AK' + nextRow).getValues().flat().filter(f=>f[0]== "A")
 
 
-var wo = sheet2.getRange( 'C'+ nextRow + ':AK' + nextRow).getValues().flat().filter(f=> f.trim() === "WO")
-
-Logger.log(present)
-Logger.log(absent)
-Logger.log(wo)
-
-var data = [empCode,empName,present.length,absent.length,wo.length]
-
-Logger.log(data)
+// // var wo = sheet2.getRange( 'C'+ nextRow + ':AK' + nextRow).getValues().flat().filter(f=>f[0]== "  WO")
 
 
-allData.push(data)
+// var wo = sheet2.getRange( 'C'+ nextRow + ':AK' + nextRow).getValues().flat().filter(f=> f.trim() === "WO")
 
-}
+// Logger.log(present)
+// Logger.log(absent)
+// Logger.log(wo)
 
-Logger.log(allData)
+// var data = [empCode,empName,present.length,absent.length,wo.length]
 
- const numRows = allData.length;
-  const numColumns = allData[0].length;
-
-Logger.log(master.getLastRow())
-
-master.getRange(master.getLastRow()+1,1,numRows,numColumns).setValues(allData)
+// Logger.log(data)
 
 
+// allData.push(data)
 
+// }
 
-  } 
+// Logger.log(allData)
+
+//  const numRows = allData.length;
+//   const numColumns = allData[0].length;
+
+// Logger.log(master.getLastRow())
+
+// master.getRange(master.getLastRow()+1,1,numRows,numColumns).setValues(allData)
+
+//   } 
 
 
 
